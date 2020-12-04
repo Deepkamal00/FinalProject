@@ -1,0 +1,162 @@
+#homepage{
+	background-color: lightgrey;
+}
+
+#title{
+	height: 80%;
+	width: 100%;
+	font-size: 30px;
+	margin: auto;
+	border-bottom: 1px solid black;
+}
+
+#title ul{
+	float: right;
+	list-style: none;
+	font-size: 30px;
+	padding-left: 20px;
+}
+
+#journey{
+	height: 70%;
+	font-size: 80px;
+}
+
+
+#title ul li{
+	float: left;
+	margin-left: 15px;
+}
+
+#gif img{
+	float: left;
+}
+
+#about{
+	float: right;
+	font-size: 25px;
+	width: 50%;
+	margin-top: 230px;
+}
+
+#login_credentials, #signup{
+	position: absolute;
+	top: 20%;
+	right: 20%;
+	margin: center;
+	background-color:rgba(0, 0, 0, 0.3);
+	font-size: 40px;
+	list-style: none;
+	border-radius: 19px;
+	padding: 20px;
+}
+
+#login_credentials label{
+	width: 70px;
+}
+
+li{
+	list-style: none;
+}
+
+#all_stories{
+	width: 80%;
+	margin:auto;
+}
+
+#all_stories form{
+	padding: 10px;
+}
+
+#all_stories fieldset{
+	padding: 10px;
+}
+
+#all_stories p{
+	padding: 18px;
+}
+
+#all_stories legend{
+	font-size: 40px;
+}
+
+#all_stories label{
+	font-size: 25px;
+	display: block;
+}
+
+#all_stories textarea{
+	width: 80%;
+	height: 80%;
+	margin: auto;
+}
+
+#all_stories input{
+	display: block;
+}
+
+#title1{
+	display: inline;
+	font-size: 19px;
+}
+
+.descreptive_img{
+	flex: 1;
+	width: 40%;
+	padding: 10px;
+}
+
+.descreptive_img1{
+	float: right;
+	width: 40%;
+	padding: 10px;
+}
+
+.descreptive_img h2, .descreptive_img1 h2{
+	background: rgba(29, 106, 154, 0.72);
+	color: #fff;
+	visibility: hidden;
+	opacity: 0;
+	transition: opacity .2s, visibility .2s;
+    width: 100%;	
+}
+
+.descreptive_img:hover .description, .descreptive_img1:hover .description {
+  visibility: visible;
+  opacity: 1;
+  text-align: center;
+  font-size: 20px;
+}
+
+#admin_container{
+	display: flex;
+}
+
+.users11{
+	background-color: powderblue;
+	padding: 5px;
+	width: 25%;
+	margin: 30px;
+	float: left;
+	border: 1px solid black;
+	text-align: center;
+	height: 100px;
+}
+
+.buttons, .info{
+	visibility: hidden;
+}
+
+.users11:hover .buttons , .users11:hover .info{
+	visibility: visible;
+}
+
+.users11:hover{
+	background-color: white;
+	height: 250px;
+}
+
+#stories{
+	border: 1px solid black;
+	padding: 10px auto;
+}
