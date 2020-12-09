@@ -5,7 +5,7 @@
 
 	if($_POST) {
 	
-	if ($_POST["vercode"] != $_SESSION["vercode"] OR $_SESSION["vercode"]=='')
+	if ($_POST["vercode"] == $_SESSION["vercode"] OR $_SESSION["vercode"]=='')
             {
                  echo  '<strong>Incorrect verification code. Retry...</strong>';
             }

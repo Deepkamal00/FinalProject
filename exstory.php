@@ -2,17 +2,44 @@
 	require('db_connect.php');
 
 	$id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-
+	$comment ="";
 	$sql = "SELECT * FROM story WHERE StoryID = :id";
 	$statement = $db->prepare($sql);
     $statement->bindValue(':id', $id, PDO::PARAM_INT);
 	$statement->execute();
 	$result = $statement->fetch();
+
+	$query = "SELECT * FROM comment WHERE sID = :id";
+	$state = $db->prepare($query);
+	$state->bindValue(':id', $id, PDO::PARAM_INT);
+	if($state->execute())
+	{
+		$comment = $state->fetchall();
+	}
+	
+	if ($_POST) {
+		$name = $_POST['name'];
+		$email = $_POST['email'];
+		$comment = $_POST['comment'];
+
+		$query = "INSERT INTO comment (name, email, comment, sID) VALUES (:name, :email, :comment, :id)";
+		$state = $db->prepare($query);
+		$state->bindValue(':name', $name);
+		$state->bindValue(':email', $email);
+		$state->bindValue(':comment', $comment);
+		$state->bindValue(':id', $id);
+		if($state->execute()){
+			header("location: exstory.php?id=".$id);
+		}
+	}
+
+	
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<title>Explore</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body id="homepage">
@@ -29,14 +56,31 @@
       <h1><?=$result['Title']?></h1>
       <p><?=$result['main']?></p>
       <?php if($result['Image'] != ""):?>
-      	<img src="<?=$result['Image']?>_medium.jpg">
+      	<img src="<?=$result['Image']?>" width="500px" height=500px />
       <?php endif?>
-      <form method="post">
+
+      <?php if($comment!=""):?>
+      	<h2>COMMENTS</h2>
+      	<?php foreach($comment as $row): ?>
+      		<p><?=$row['comment']?></p>
+      	<?php endforeach?>
+      <?php endif?>
       <p>
-        <label>Add Comment</label>
-        <textarea name="comment"></textarea>
-        <button value="submit">Submit</button>
-      </p></form>
+      	<h2>Add a comment:</h2>
+      	<form method="post">
+			<p>
+				<label>Name: </label>
+				<input type="text" name="name" />
+				<label>Email: </label>
+				<input type="text" name="email" />
+		        <label>Add Comment</label>
+		        <textarea name="comment"></textarea>
+		        <button type="submit" value="submit">Submit</button>
+		    </p>
+		</form>
+      </p>
+
+      
   	</div>
 </body>
 </html>

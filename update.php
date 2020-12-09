@@ -14,7 +14,7 @@
 		$name = $_POST['name'];
 		$email = $_POST['email'];
 		$phone = $_POST['phone'];
-		$query = "UPDATE users SET Username=:user, Name=:name, Email=:email, PhoneNo = :phone WHERE UserID = :id";
+		$query = "UPDATE users SET Username=:user, Name=:name, Email=:email, Phoneno = :phone WHERE UserID = :id";
 		$update = $db->prepare($query);
 		$update->bindValue(':user', $user);
 		$update->bindValue(':name', $name);
@@ -53,7 +53,7 @@
 		</li>
 		<li>
 			<label for="phone">Phone Number </label>
-			<input type="phone" name="phone" value="<?=$result['PhoneNo']?>">
+			<input type="phone" name="phone" value="<?=$result['Phoneno']?>">
 		</li>
 		<li>
 			<input type="submit" name="submit" value="Update">

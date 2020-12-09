@@ -15,6 +15,9 @@
 
   $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
   $content = filter_input(INPUT_POST, 'main', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $category = filter_input(INPUT_POST, 'cat', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  $country = filter_input(INPUT_POST, 'country', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+  echo $category;
 
     if($title != "" && $content != "" ){
 
@@ -26,35 +29,29 @@
 
           $actual_file_extension = pathinfo($new_image_path, PATHINFO_EXTENSION);
 
-          //$actual_mime_type = mime_content_type($temporary_image_path);
-
           $extention_is_valid = in_array($actual_file_extension, $allowed_file_extensions);
 
-          //$mime_is_valid = in_array($actual_mime_type, $allowed_mime_types);
-
-              move_uploaded_file($temporary_image_path, $new_image_path);
-
-              $image_medium = new Gumlet\ImageResize($new_image_path);
-              $image_medium->resizeToWidth(400);
-              $image_medium->save($new_image_path.'_medium'.'.'.$actual_file_extension);
-
-               $image_thumbnail = new Gumlet\ImageResize($new_image_path);
-              $image_thumbnail->resizeToWidth(50);
-              $image_thumbnail->save($new_image_path.'_thumbnail'.'.'.$actual_file_extension);
+            
+            move_uploaded_file($temporary_image_path, $new_image_path);
+          
+//             $image_medium = new Gumlet\ImageResize($new_image_path);
+  //           $image_medium->resizeToWidth(400);
+    //         $image_medium->save($new_image_path.'_medium'.'.'.$actual_file_extension);
+//
+  //           $image_thumbnail = new Gumlet\ImageResize($new_image_path);
+    //         $image_thumbnail->resizeToWidth(50);
+      //       $image_thumbnail->save($new_image_path.'_thumbnail'.'.'.$actual_file_extension);
             
 
-          //else{
-            //echo "invalid data";
-          //}
-        
-            
-      $query = "INSERT INTO story(Title, main, Image) VALUES (:title, :main, :image)";
+      $query = "INSERT INTO story(Title, main, Image, Category, Country) VALUES (:title, :main, :image, :cat, :country)";
       
       $Statement = $db->prepare($query);
 
       $Statement->bindValue(':title', $title);
       $Statement->bindValue(':main', $content);
       $Statement->bindValue(':image', $new_image_path);
+      $Statement->bindValue(':cat', $category);
+      $Statement->bindValue(':country', $country);
 
       $Statement->execute();
 
@@ -94,8 +91,18 @@
         <input type="text" name="title" id="title1" />
       </p>
       <p>
+        <label>Country: </label>
+        <input type="text" name="country" />
+      </p>
+      <p>
         <label for="main">Content</label>
         <textarea name="main" id="main" rows="15"></textarea>
+      </p>
+      <p>
+        <label>Chose a category for your story</label>
+        <input type="radio" name="cat" id="mount" value="mount"> Mountains<br/>
+        <input type="radio" name="cat" id="beach" value="beach"> Beach<br/>
+        <input type="radio" name="cat" id="gen" value="gen" checked/> General <br/>
       </p>
       <p>
         <label>Images</label><br>

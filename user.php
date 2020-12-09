@@ -38,7 +38,7 @@
 			<div class="info">
 				<h3><?=$row['Name']?></h3>
 				<h3><?=$row['Email']?></h3>
-				<h3><?=$row['PhoneNo']?></h3>
+				<h3><?=$row['Phoneno']?></h3>
 			</div>
 			<a href="update.php?id=<?=$row['UserID']?>"><button type="button" class="buttons">Update</button></a>
 		</div>

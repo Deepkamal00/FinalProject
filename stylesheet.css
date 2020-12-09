@@ -85,6 +85,10 @@ li{
 	display: block;
 }
 
+#mount, #beach, #gen{
+	display: inline;
+}
+
 #all_stories textarea{
 	width: 80%;
 	height: 80%;

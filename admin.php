@@ -24,7 +24,7 @@
 			<h2 class="description">Users</h2>
 		</div>
 		<div class="descreptive_img1">
-			<a href="story.php"><img src="storypage.jpg" width="600px" height="600px"></a>
+			<a href="mystory.php"><img src="storypage.jpg" width="600px" height="600px"></a>
 			<h2 class="description">Stories</h2>
 		</div>
 	</div>

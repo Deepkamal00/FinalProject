@@ -9,6 +9,23 @@
 	$statement->execute();
 	$result = $statement->fetch();
 
+  if(isset($_POST['delete'])){
+    $file = $result['Image'];
+    $medium = $result['Image']."_medium.jpg";
+    $thumb = $result['Image']."_thumbnail.jpg";
+    unlink($file);
+    unlink($medium);
+    unlink($thumb);
+    $img = "";
+    $query = "UPDATE Story SET Image = :img WHERE StoryID = :id";
+    $run = $db->prepare($query);
+    $run->bindValue(':id', $id);
+    $run->bindValue(':img', $img);
+    if ($run->execute()) {
+      header('location: myStory.php');
+    }
+  }
+
 	if(isset($_POST['submit'])){
     if(isset($_POST['uploaded_file'])){
       $image_filename = $_FILES['uploaded_file']['name'];
@@ -69,15 +86,16 @@
       </p>
       <p>
         <?php if($result['Image']!=""):?>
-          <img src="<?=$result['Image']?>_medium.jpg">
-        <button>Delete Image</button>
+          <img src="<?=$result['Image']?>"  width="500px" height=500px />
+        <button type="submit" name="delete">Delete Image</button>
+
         <?php endif?>
       </p>
       <p>
         <?php if($result['Image']!=""): ?>
           <label>Replace the old image with new one</label><br>
           <label>File name:</label>
-          <input type="file" name="uploaded_file1" id="uploaded_file" />  
+          <input type="file" name="uploaded_file1" id="uploaded_file" /> 
           <?php else:?>
             <label>Add an image to your story</label>
             <label>File name:</label>
@@ -85,7 +103,7 @@
         <?php endif?>
       </p>
       <p>
-        <input type="submit" name="submit" value="Create" />
+        <input type="submit" name="submit" value="Update" />
       </p>
     </fieldset>
   </form> 
