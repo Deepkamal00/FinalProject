@@ -16,7 +16,7 @@
 		</ul>
 	</div>
 	<div id="gif">
-		<img src="giphy.gif">
+		<img src="giphy.gif" alt="gif">
 		<p id="about">This is the one spot for people who are crazy for travelling. You can share yoour travel experience here, share pictures, rate a place and give advice to others. Moreover you can explore other people's travel blogs.</p>
 	</div>
 </body>

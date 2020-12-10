@@ -18,9 +18,9 @@
 	}
 	
 	if ($_POST) {
-		$name = $_POST['name'];
-		$email = $_POST['email'];
-		$comment = $_POST['comment'];
+		$name = filter_input(INPUT_POST, 'name', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+		$email = filter_input(INPUT_POST, 'email', FILTER_SANITIZE_EMAIL);
+		$comment = filter_input(INPUT_POST, 'comment', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
 
 		$query = "INSERT INTO comment (name, email, comment, sID) VALUES (:name, :email, :comment, :id)";
 		$state = $db->prepare($query);
@@ -39,7 +39,6 @@
 <html>
 <head>
 	<title>Explore</title>
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 	<link rel="stylesheet" type="text/css" href="stylesheet.css">
 </head>
 <body id="homepage">
