@@ -1,13 +1,5 @@
 <?php 
-	require('db_connect.php');   
-
-
-	session_start();
-	  if(!isset($_SESSION['user']))
-	  {
-	    //header('location: login.php');
-	  }
-
+	require('db_connect.php');  
 
 	  $query = "";
 	  $id = "";
@@ -26,8 +18,7 @@
 			$query = "SELECT * FROM Story ORDER BY StoryID";
 			$option = "Older To Newer";
 		}
-			
-
+		
 	}else{
 		$query = "SELECT * FROM Story";
 	}
@@ -37,18 +28,15 @@
 
 	//Execute the query
  	$statement->execute(); 	
+ 		$comid = "";
 
- 	if($id!==""){
- 		echo "fjhhk";
- 		$sql = "SELECT * FROM comment WHERE sID = :id";
- 		$state = $db->prepare($sql);
- 		$state->bindValue(':id',$id);
- 		$state->execute();
- 	}
-		
-	
-
- 					
+ 	if (isset($_POST['delcom'])) {
+ 		echo $comid;
+ 	 	$delete = "DELETE FROM comment WHERE id = :id";
+ 	 	$run = $db->prepare($delete);
+ 	 	$run->bindValue(':id', $comid);
+ 	 	$run->execute();
+ 	} 					
 ?>
 
 <!DOCTYPE html>
@@ -90,22 +78,37 @@
 				<?php endif?>
 				<?php foreach ($statement as $row) : ?>
 					<?php $id = $row['StoryID'];?>
+					<?php 
+						if($id!==""){
+					 		$sql = "SELECT * FROM comment WHERE sID = :id";
+					 		$state = $db->prepare($sql);
+					 		$state->bindValue(':id',$id);
+					 		$state->execute();
+ 						}
+					?>
 					<h1><?=$row['Title']?></h1>
 					<p>
 						<?=$row['main']?><br/>
 						<?php if ($row['Image']!=""):?>
-						<img src="<?=$row['Image']?>" width="500px" height=500px />
+						<img src="<?=$row['Image']?>" width="500" height="500" />
 						<?php endif?>
-						<p>
-							<?php if($state!==""):?>
-							<h2>Comments</h2>
-							<?php foreach($state as $comment):?>
-								<?= $commnt['comment']?>
-							<?php endforeach?>
-						<?php endif?>
-						</p>
+						
 						<button><a href="updatestory.php?id=<?=$row['StoryID']?>">Update</a></button>
 						<button><a href="deletestory.php?id=<?=$row['StoryID']?>">Delete</button></a>
+
+						<p>
+							<?php if($state!==""):?>
+								<h2>Comments</h2>
+								<?php foreach($state as $comment):?>
+									<p>
+										<?= $comment['comment']?>
+									
+										<?=$comment['id']?>
+										<a href="deletecomment.php?id=<?=$comment['id']?>">Delete comment</a>
+									</p>
+								<?php endforeach?>
+							<?php endif?>
+						</p>
 					</p>
 				<?php endforeach?>
 				</form>
